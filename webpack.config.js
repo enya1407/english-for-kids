@@ -4,24 +4,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const OptimizeCssAssetPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
-
-const isDev = process.env.NODE_ENY === 'development';
-const isProd = !isDev;
-const optimization = () => {
-  const config = {
-    splitChunks: {
-      chunks: 'all',
-    },
-  };
-
-  if (isProd) {
-    config.minimizer = [new OptimizeCssAssetPlugin(), new TerserWebpackPlugin()];
-  }
-  return config;
-};
-
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
@@ -33,23 +15,16 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
   },
-  optimization: optimization(),
-  devServer: {
-    port: 4200,
-    hot: isDev,
-  },
   plugins: [
     new HTMLWebpackPlugin({
       template: './index.html',
-      minify: {
-        collapseWhitespace: isProd,
-      },
+      favicon: './favicon.png',
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, 'src/favicon.png'),
-        to: path.resolve(__dirname, 'dist'),
+        from: path.resolve(__dirname, 'src/assets'),
+        to: path.resolve(__dirname, 'dist/assets'),
       },
     ]),
     new MiniCssExtractPlugin({
@@ -64,7 +39,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: isDev,
               reloadAll: true,
             },
           },
@@ -77,7 +51,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: isDev,
               reloadAll: true,
             },
           },
