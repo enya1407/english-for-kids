@@ -1,19 +1,41 @@
 import '../styles/style.scss';
+import './burger.js';
+import cardsArr from './cards.js';
+// карточки
+const cards = cardsArr.map((el) => el.name);
+const cardContainer = document.querySelector('.card-container');
+const fragment = new DocumentFragment();
+console.log(cards);
 
-const links = document.querySelectorAll('.nav__link');
-const burger = document.querySelector('.header__burger');
-const navHeader = document.querySelector('.nav__header');
-const logo = document.querySelector('.logo');
-const shadow = document.querySelector('.shadow');
+const renderCards = () => {
+  cards.forEach((el) => {
+    const card = document.createElement('a');
+    card.classList.add('card');
+    card.setAttribute('href', `#${el}`);
+    card.textContent = el;
 
-burger.addEventListener('click', () => {
-  [burger, navHeader, logo, shadow].forEach((el) => el.classList.toggle('active'));
-});
-links.forEach((el) =>
-  el.addEventListener('click', () => {
-    [burger, navHeader, logo, shadow].forEach((e) => e.classList.remove('active'));
-  })
-);
-shadow.addEventListener('click', () => {
-  [burger, navHeader, logo, shadow].forEach((el) => el.classList.toggle('active'));
+    const cardImg = document.createElement('div');
+    cardImg.classList.add('card__img', el);
+
+    card.append(cardImg);
+    fragment.append(card);
+  });
+
+  cardContainer.append(fragment);
+};
+
+renderCards();
+
+// кнопка
+
+const switch1 = document.querySelector('.slider');
+const card1 = document.querySelectorAll('.card');
+let switchOn = true; //train
+switch1.addEventListener('click', () => {
+  if (switchOn) {
+    card1.forEach((el) => el.classList.add('cardPlay'));
+  } else {
+    card1.forEach((el) => el.classList.remove('cardPlay'));
+  }
+  switchOn = !switchOn;
 });
