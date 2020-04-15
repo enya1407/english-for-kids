@@ -127,7 +127,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-
+  border-radius: 5px;
   background-image: url('../assets/img/5b8bd74a987541659a40fb80.jpg');
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -142,7 +142,7 @@ body {
   content: '';
   height: 30px;
   width: 49px;
-  left: 7px;
+  left: 57px;
   bottom: 4px;
   background-color: #7c089b;
   -webkit-transition: 0.4s;
@@ -156,9 +156,9 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(50px);
-  -ms-transform: translateX(50px);
-  transform: translateX(50px);
+  -webkit-transform: translateX(-50px);
+  -ms-transform: translateX(-50px);
+  transform: translateX(-50px);
 }
 
 .card-container {
@@ -171,18 +171,18 @@ input:checked + .slider:before {
   text-decoration: none;
   font-size: 25px;
   line-height: 38px;
-  color: #37474f;
+  color: #7c089b;
   font-family: 'ComicNeue-Bold';
   text-transform: uppercase;
   background-image: url('../assets/img/5b8bd74a987541659a40fb80.jpg');
   text-align: center;
   margin: 22px;
-  // width: 300px;
   transition: 0.3s;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  // border-left: red solid 50px;
-  // border-image: url('../assets/img/5b8bd74a987541659a40fb80.jpg') 30;
-  // background-position: -50px;
+  border-radius: 13px;
+}
+.cardsCategory {
+  border: 5px solid #7c089b;
 }
 .cardPlay {
   background-position: -555px;
@@ -192,29 +192,43 @@ input:checked + .slider:before {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
+.cardsCategory:hover {
+  border: 5px solid #37474f;
+}
+
 .card__img {
   width: 300px;
   height: 250px;
 }
 
-.Action_1 {
+.Action_1__img {
   background-image: url(../assets/img/dance.jpg);
 }
-.Action_2 {
+.Action_2__img {
   background-image: url(../assets/img/swim.jpg);
 }
-.Emotion_1 {
+.Emotion_1__img {
   background-image: url(../assets/img/smile.jpg);
 }
-.Emotion_2 {
+.Emotion_2__img {
   background-image: url(../assets/img/angry.jpg);
 }
-.Animal_1 {
+.Animal_1__img {
   background-image: url(../assets/img/cat.jpg);
 }
-.Animal_2 {
+.Animal_2__img {
   background-image: url(../assets/img/bird.jpg);
 }
-.Clothes {
+.Clothes__img {
   background-image: url(../assets/img/blouse.jpg);
+}
+.rotate {
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/img/63697.png);
+}
+
+.transparent {
+  color: transparent;
+  user-select: none;
 }

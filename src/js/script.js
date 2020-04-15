@@ -1,41 +1,57 @@
 import '../styles/style.scss';
 import './burger.js';
-import cardsArr from './cards.js';
-// карточки
-const cards = cardsArr.map((el) => el.name);
+import { renderCardsCategory, renderCardsWord } from './renderCards.js';
+
 const cardContainer = document.querySelector('.card-container');
-const fragment = new DocumentFragment();
-console.log(cards);
+cardContainer.append(renderCardsCategory());
+const checkbox = document.querySelector('.checkbox'); // checkbox.checked начальное false
 
-const renderCards = () => {
-  cards.forEach((el) => {
-    const card = document.createElement('a');
-    card.classList.add('card');
-    card.setAttribute('href', `#${el}`);
-    card.textContent = el;
-
-    const cardImg = document.createElement('div');
-    cardImg.classList.add('card__img', el);
-
-    card.append(cardImg);
-    fragment.append(card);
-  });
-
-  cardContainer.append(fragment);
-};
-
-renderCards();
-
-// кнопка
-
-const switch1 = document.querySelector('.slider');
-const card1 = document.querySelectorAll('.card');
-let switchOn = true; //train
-switch1.addEventListener('click', () => {
-  if (switchOn) {
-    card1.forEach((el) => el.classList.add('cardPlay'));
-  } else {
-    card1.forEach((el) => el.classList.remove('cardPlay'));
+const cleanContainer = () => {
+  while (cardContainer.firstChild) {
+    cardContainer.removeChild(cardContainer.firstChild);
   }
-  switchOn = !switchOn;
+};
+// кнопка
+const switch1 = document.querySelector('.slider');
+
+switch1.addEventListener('click', () => {
+  if (document.querySelectorAll('.card')[0].classList[1] === 'cardsCategory') {
+    if (!checkbox.checked) {
+      document.querySelectorAll('.card').forEach((el) => el.classList.add('cardPlay'));
+    } else {
+      document.querySelectorAll('.card').forEach((el) => el.classList.remove('cardPlay'));
+    }
+  } else if (!checkbox.checked) {
+    document.querySelectorAll('.card>span').forEach((el) => {
+      // el.textContent = '';
+      el.classList.add('transparent');
+    });
+  } else {
+    document.querySelectorAll('.card>span').forEach((el) => {
+      // el.textContent = `${text}`;
+      el.classList.remove('transparent');
+    });
+  }
 });
+
+// переход к категориям
+
+document.addEventListener('click', (evt) => {
+  const category = evt.target.closest('.cardsCategory').classList[2];
+  if (category) {
+    cleanContainer();
+    if (category === 'Main-Page') {
+      cardContainer.append(renderCardsCategory());
+    } else {
+      cardContainer.append(renderCardsWord(category));
+    }
+  }
+});
+
+// //аудио
+
+// function soundClick() {
+//   const audio = new Audio();
+//   audio.src = audioSrc;
+//   audio.autoplay = true;
+// }
