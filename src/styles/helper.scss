@@ -1,0 +1,19 @@
+.rotate {
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/img/63697.png);
+}
+
+.transparent {
+  color: transparent;
+  user-select: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.animation {
+  transition: 0.8s;
+  transform: rotateY(180deg) scale(-1, 1);
+}

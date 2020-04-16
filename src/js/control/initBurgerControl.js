@@ -6,6 +6,7 @@ const navMenu = document.querySelector('.nav__list');
 burger.addEventListener('click', () => {
   [burger, navHeader].forEach((el) => el.classList.toggle('active'));
 });
+
 links.forEach((el) =>
   el.addEventListener('click', () => {
     [burger, navHeader].forEach((e) => e.classList.remove('active'));
@@ -18,5 +19,3 @@ navMenu.addEventListener('click', (event) => {
     event.target.classList.add('nav__link_active');
   }
 });
-
-export default burger;
