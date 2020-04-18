@@ -1,0 +1,22 @@
+@media(max-width: 570px) {
+  .header {
+    padding: 27px 71px 52px 45px;
+  }
+
+  .header__burger {
+    top: 15px;
+  }
+
+  .nav__header.active {
+    left: -30px;
+  }
+
+
+  .nameOfCategory {
+    top: 77px;
+    margin: 0;
+    left: 195px;
+    font-size: 27px;
+  }
+
+}

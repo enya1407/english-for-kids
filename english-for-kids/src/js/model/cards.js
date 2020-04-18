@@ -184,7 +184,7 @@ const cardsArr = [
       },
       {
         word: 'giraffe',
-        translation: 'жирафа',
+        translation: 'жираф',
         image: "url('../assets/img/giraffe.jpg')",
         audioSrc: '../assets/audio/giraffe.mp3',
       },

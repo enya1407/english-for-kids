@@ -1,10 +1,24 @@
 body {
   margin: 0 auto;
+  position: relative;
 }
 
 .wrapper {
   background-color: #d9c2df;
   min-height: 100vh;
+}
+
+.wrapper__shadow {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(50, 55, 70, 0.4);
+  z-index: 2;
+}
+
+.wrapper__shadow.active {
+  display: block;
 }
 
 .card-container {
@@ -29,15 +43,26 @@ body {
   border-radius: 13px;
 }
 
-.nameOfCategory {
-  position: absolute;
-  top: 7px;
-  font-size: 32px;
-  border: solid #7c089b 5px;
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
-.cardsCategory {
+.nameOfCategory {
+  position: absolute;
+  top: -4px;
+  font-size: 36px;
+  color: #7c089b;
+
+  font-family: 'ComicNeue-Bold';
+}
+
+.cardsCategoryStyle {
   border: 5px solid #7c089b;
+}
+
+.cardsCategoryStyle:hover {
+  border: 5px solid #37474f;
 }
 
 .cardsWord {
@@ -65,14 +90,47 @@ body {
   background-position: -555px;
 }
 
-.card:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
+
+
+.button-Game__Container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+
+  .button-Game {
+    background-image: url('../assets/img/5b8bd74a987541659a40fb80.jpg');
+    width: 356px;
+    height: 55px;
+    margin: 0 auto;
+    margin-top: 21px;
+    border-radius: 20px;
+    background-position: 886px;
+    font-size: 36px;
+    color: #7c089b;
+  }
+
+  .button-Game:hover {
+    cursor: pointer;
+    border: 3px solid #7c089b;
+  }
+
+  .button-repeat {
+    width: 70px;
+    height: 70px;
+    margin-top: 13px;
+    border-radius: 50%;
+    background-position: 6px;
+    outline: none;
+    background: #7c089b;
+    background-image: url('../assets/img/repeat.svg');
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+    border: 0;
+  }
+
 }
 
-.cardsCategory:hover {
-  border: 5px solid #37474f;
-}
 
 .card__img {
   width: 300px;
@@ -106,4 +164,9 @@ body {
 
 .Clothes__img {
   background-image: url(../assets/img/blouse.jpg);
+}
+
+.shadow {
+  box-shadow: inset 0px 0px 291px 200px rgba(0, 0, 0, 0.6);
+
 }

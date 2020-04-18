@@ -7,3 +7,5 @@ import './control/initMainControl.js';
 const cardContainer = document.querySelector('.card-container');
 
 cardContainer.append(renderCardsCategory());
+
+

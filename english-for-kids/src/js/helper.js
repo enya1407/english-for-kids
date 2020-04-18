@@ -16,4 +16,17 @@ const findTranslation = (nameOfCategory, word) => {
     .cards.filter((el) => el.word === word)[0].translation;
 };
 
-export { playAudio, findTranslation };
+function shuffle(arr) {
+  const result = [...arr];
+  let j;
+  let temp;
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = result[j];
+    result[j] = result[i];
+    result[i] = temp;
+  }
+  return result;
+}
+
+export { playAudio, findTranslation, shuffle };

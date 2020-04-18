@@ -1,4 +1,17 @@
 @import '../../node_modules/normalize.css/normalize.css';
-@import './helper.scss';
+
 @import './layout.scss';
 @import './header.scss';
+@import './helper.scss';
+@import './media.scss';
+
+
+@font-face {
+  font-family: "ComicNeue-Regular";
+  src: url("../assets/fonts/ComicNeue-Regular.ttf");
+}
+
+@font-face {
+  font-family: "ComicNeue-Bold";
+  src: url("../assets/fonts/ComicNeue-Bold.ttf");
+}

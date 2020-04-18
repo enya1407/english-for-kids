@@ -10,7 +10,7 @@ const fragment = new DocumentFragment();
 const renderCardsCategory = () => {
   cardsCategory.forEach((el) => {
     const card = document.createElement('div');
-    card.classList.add('card', 'cardsCategory', el);
+    card.classList.add('card', 'cardsCategory', el, 'cardsCategoryStyle');
     if (gameModeCheckbox.checked) {
       card.classList.add('cardPlay');
     }
@@ -49,15 +49,28 @@ const renderCardsWord = (category) => {
     btn.classList.add('button');
 
     if (gameModeCheckbox.checked) {
-      text.classList.add('transparent');
+      text.classList.add('hidden');
       card.classList.add('cardPlay');
-      btn.style.display = 'none';
+      btn.classList.add('hidden');
     }
     card.append(text);
     card.append(btn);
     card.append(cardImg);
     fragment.append(card);
   });
+
+  const buttonGameContainer = document.createElement('div');
+  const buttonGame = document.createElement('button');
+  buttonGameContainer.classList.add('button-Game__Container');
+  buttonGame.classList.add('button-Game');
+  buttonGame.textContent = 'Start game';
+
+  if (!gameModeCheckbox.checked) {
+    buttonGameContainer.classList.add('hidden');
+    buttonGame.classList.add('hidden');
+  }
+  buttonGameContainer.append(buttonGame);
+  fragment.append(buttonGameContainer);
 
   return fragment;
 };

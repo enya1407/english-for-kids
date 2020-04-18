@@ -1,5 +1,5 @@
 .header {
-  padding: 40px 105px 40px 140px;
+  padding: 40px 155px 40px 140px;
   display: flex;
   justify-content: space-between;
 }
@@ -39,9 +39,12 @@
   top: 0;
 }
 
+
+
 .header__burger::after {
   bottom: 0;
 }
+
 
 .header__burger.active {
   transform: rotate(90deg);
@@ -73,10 +76,10 @@
 
     .nav__link {
       text-decoration: none;
-      font-size: 25px;
+      font-size: 30px;
       line-height: 38px;
       color: #37474f;
-      font-family: 'ComicNeue-Bold';
+      font-family: "ComicNeue-Bold";
       text-transform: uppercase;
       display: block;
       padding-left: 2.4em;
@@ -85,7 +88,6 @@
 
     .nav__link_active {
       color: #7c089b;
-      text-decoration: underline;
     }
 
     .nav__link:hover {
@@ -120,7 +122,7 @@
   padding: 12px 10px 10px 8px;
 
   color: #7c089b;
-  font-family: 'ComicNeue-Bold';
+  font-family: 'ComicNeue-Regular';
   text-transform: uppercase;
   font-size: 15px;
   cursor: pointer;
@@ -144,7 +146,7 @@
   content: '';
   height: 30px;
   width: 49px;
-  left: 57px;
+  left: 55px;
   bottom: 4px;
   background-color: #7c089b;
   -webkit-transition: 0.4s;

@@ -1,5 +1,6 @@
 import { renderCardsCategory, renderCardsWord, cleanContainer } from '../view/renderCards.js';
 import { playAudio, findTranslation } from '../helper.js';
+import startGame from './gameControl.js';
 
 const cardContainer = document.querySelector('.card-container');
 const gameModeCheckbox = document.querySelector('.checkbox');
@@ -17,21 +18,30 @@ gameModToggle.addEventListener('click', () => {
     }
   }
   if (!gameModeCheckbox.checked) {
+    document.querySelector('.button-Game').classList.remove('button-repeat');
+    document.querySelector('.button-Game').textContent = 'Start game';
+    document.querySelector('.button-Game').style.transition = '0.5s';
     document.querySelectorAll('.card').forEach((el) => el.classList.add('cardPlay'));
     document.querySelectorAll('.card>span').forEach((el) => {
-      el.classList.add('transparent');
+      el.classList.add('hidden');
       document.querySelectorAll('.button').forEach((elem) => {
         elem.classList.add('hidden');
       });
     });
+
+    document.querySelector('.button-Game__Container').classList.remove('hidden');
+    document.querySelector('.button-Game').classList.remove('hidden');
   } else {
     document.querySelectorAll('.card').forEach((el) => el.classList.remove('cardPlay'));
+    document.querySelectorAll('.shadow').forEach((el) => el.classList.remove('shadow'));
     document.querySelectorAll('.card>span').forEach((el) => {
-      el.classList.remove('transparent');
+      el.classList.remove('hidden');
     });
     document.querySelectorAll('.button').forEach((el) => {
       el.classList.remove('hidden');
     });
+    document.querySelector('.button-Game__Container').classList.add('hidden');
+    document.querySelector('.button-Game').classList.add('hidden');
   }
 });
 
@@ -82,5 +92,20 @@ cardContainer.addEventListener('click', (evt) => {
     card.addEventListener('mouseleave', onMouseleave);
   } else if (!gameModeCheckbox.checked) {
     playAudio(nameOfCategory, word);
+  }
+});
+
+// включение игры
+cardContainer.addEventListener('click', (evt) => {
+  if (evt.target.classList[0] === 'button-Game' && evt.target.classList[1] !== 'button-repeat') {
+    const buttonGame = document.querySelector('.button-Game');
+    const nameOfCategory = document.querySelector('.nameOfCategory').textContent;
+
+    buttonGame.classList.add('button-repeat');
+    buttonGame.textContent = '';
+    startGame(nameOfCategory);
+    setTimeout(() => {
+      buttonGame.style.transition = 'none';
+    }, 500);
   }
 });
