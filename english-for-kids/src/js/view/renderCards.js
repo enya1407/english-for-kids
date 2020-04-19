@@ -8,6 +8,11 @@ const cardsCategory = cardsArr.map((el) => el.name);
 const fragment = new DocumentFragment();
 
 const renderCardsCategory = () => {
+  const starContainer = document.createElement('div');
+  starContainer.classList.add('star__container');
+
+  fragment.append(starContainer);
+
   cardsCategory.forEach((el) => {
     const card = document.createElement('div');
     card.classList.add('card', 'cardsCategory', el, 'cardsCategoryStyle');
@@ -31,6 +36,10 @@ const renderCardsWord = (category) => {
   nameOfCategory.textContent = category;
   nameOfCategory.classList.add('nameOfCategory');
   fragment.append(nameOfCategory);
+
+  const starContainer = document.createElement('div');
+  starContainer.classList.add('star__container');
+  fragment.append(starContainer);
 
   const cardsWord = cardsArr.filter((el) => el.name === category)[0].cards;
   cardsWord.forEach((el) => {

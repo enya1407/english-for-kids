@@ -16,8 +16,7 @@ gameModToggle.addEventListener('click', () => {
     } else {
       document.querySelectorAll('.card').forEach((el) => el.classList.remove('cardPlay'));
     }
-  }
-  if (!gameModeCheckbox.checked) {
+  } else if (!gameModeCheckbox.checked) {
     document.querySelector('.button-Game').classList.remove('button-repeat');
     document.querySelector('.button-Game').textContent = 'Start game';
     document.querySelector('.button-Game').style.transition = '0.5s';

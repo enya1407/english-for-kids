@@ -1,9 +1,12 @@
-import { playAudio, shuffle } from '../helper.js';
+import { playAudio, shuffle, gameOver, madeStar } from '../helper.js';
 import cardsArr from '../model/cards.js';
 
 const cardContainer = document.querySelector('.card-container');
 
+// const gameModeCheckbox = document.querySelector('.checkbox');
+
 const startGame = (nameOfCategory) => {
+  let counterErrors = 0;
   const arrWord = cardsArr.filter((el) => el.name === nameOfCategory)[0].cards;
   const arrRandomWord = shuffle(arrWord);
   let wordInTheGame = arrRandomWord.length - 1;
@@ -20,15 +23,22 @@ const startGame = (nameOfCategory) => {
       if (arrRandomWord[wordInTheGame].word === category) {
         audio.src = '../assets/audio/correct.mp3';
         audio.play();
+        madeStar('correct');
         evt.target.classList.add('shadow');
         wordInTheGame -= 1;
-        setTimeout(playAudioNow, 2000);
+        if (wordInTheGame >= 0) {
+          setTimeout(playAudioNow, 1000);
+        } else {
+          gameOver(counterErrors);
+        }
       } else if (
         arrRandomWord[wordInTheGame].word !== category &&
         evt.target.classList[1] !== 'shadow'
       ) {
         audio.src = '../assets/audio/error.mp3';
         audio.play();
+        madeStar();
+        counterErrors += 1;
       }
     }
   });

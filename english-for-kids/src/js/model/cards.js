@@ -322,6 +322,112 @@ const cardsArr = [
       },
     ],
   },
+  {
+    name: 'fruit',
+    cards: [
+      {
+        word: 'banana',
+        translation: 'банан',
+        image: "url('../assets/img/banana.jpg')",
+        audioSrc: '../assets/audio/banana.mp3',
+      },
+      {
+        word: 'grape',
+        translation: 'виноград',
+        image: "url('../assets/img/grape.jpg')",
+        audioSrc: '../assets/audio/grape.mp3',
+      },
+      {
+        word: 'apple',
+        translation: 'яблоко',
+        image: "url('../assets/img/apple.jpg')",
+        audioSrc: '../assets/audio/apple.mp3',
+      },
+      {
+        word: 'kiwi',
+        translation: 'киви',
+        image: "url('../assets/img/kiwi.jpg')",
+        audioSrc: '../assets/audio/kiwi.mp3',
+      },
+      {
+        word: 'pineapple',
+        translation: 'ананас',
+        image: "url('../assets/img/pineapple.jpg')",
+        audioSrc: '../assets/audio/pineapple.mp3',
+      },
+      {
+        word: 'melon',
+        translation: 'дыня',
+        image: "url('../assets/img/melon.jpg')",
+        audioSrc: '../assets/audio/melon.mp3',
+      },
+      {
+        word: 'mandarin',
+        translation: 'мандарин',
+        image: "url('../assets/img/mandarin.jpg')",
+        audioSrc: '../assets/audio/mandarin.mp3',
+      },
+      {
+        word: 'peach',
+        translation: 'персик',
+        image: "url('../assets/img/peach.jpg')",
+        audioSrc: '../assets/audio/peach.mp3',
+      },
+    ],
+  },
+  {
+    name: 'berry',
+    cards: [
+      {
+        word: 'cherry',
+        translation: 'вишня',
+        image: "url('../assets/img/cherry.jpg')",
+        audioSrc: '../assets/audio/cherry.mp3',
+      },
+      {
+        word: 'raspberry',
+        translation: 'малина',
+        image: "url('../assets/img/raspberry.jpg')",
+        audioSrc: '../assets/audio/raspberry.mp3',
+      },
+      {
+        word: 'strawberry',
+        translation: 'клубника',
+        image: "url('../assets/img/strawberry.jpg')",
+        audioSrc: '../assets/audio/strawberry.mp3',
+      },
+      {
+        word: 'gooseberry',
+        translation: 'крыжовник',
+        image: "url('../assets/img/gooseberry.jpg')",
+        audioSrc: '../assets/audio/gooseberry.mp3',
+      },
+      {
+        word: 'watermelon',
+        translation: 'арбуз',
+        image: "url('../assets/img/watermelon.jpg')",
+        audioSrc: '../assets/audio/watermelon.mp3',
+      },
+      {
+        word: 'blueberry',
+        translation: 'черника',
+        image: "url('../assets/img/blueberry.jpg')",
+        audioSrc: '../assets/audio/blueberry.mp3',
+      },
+      {
+        word: 'cranberry',
+        translation: 'клюква',
+        image: "url('../assets/img/cranberry.jpg')",
+        audioSrc: '../assets/audio/cranberry.mp3',
+      },
+      {
+        word: 'blackberry',
+        translation: 'ежевика',
+        image: "url('../assets/img/blackberry.jpg')",
+        audioSrc: '../assets/audio/blackberry.mp3',
+      },
+    ],
+  },
 ];
 
 export default cardsArr;

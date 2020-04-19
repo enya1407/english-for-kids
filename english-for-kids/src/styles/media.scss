@@ -1,4 +1,17 @@
-@media(max-width: 570px) {
+@media(max-width: 870px) {
+  .nav__header.active {
+    left: -30px;
+    width: 310px;
+  }
+
+  .nav__link {
+    padding-left: 93px;
+    margin: 0px 0;
+    font-size: 30px;
+  }
+}
+
+@media(max-width: 620px) {
   .header {
     padding: 27px 71px 52px 45px;
   }
@@ -7,16 +20,38 @@
     top: 15px;
   }
 
-  .nav__header.active {
-    left: -30px;
+  .nav__header {
+    left: -130%;
   }
 
 
+
+
+
+
+
+  .button-Game {
+
+    margin-top: 20px;
+  }
+
+}
+
+@media(max-width: 420px) {
   .nameOfCategory {
     top: 77px;
     margin: 0;
-    left: 195px;
     font-size: 27px;
   }
 
+  .nav__header.active {
+    width: 210px;
+  }
+
+  .nav__link {
+
+    padding-left: 50px;
+    margin: -10px 0;
+    font-size: 26px;
+  }
 }
