@@ -27,10 +27,10 @@ const cardsArr = [
         audioSrc: '../assets/audio/draw.mp3',
       },
       {
-        word: 'fish',
+        word: 'fishing',
         translation: 'ловить рыбу',
-        image: "url('../assets/img/fish.jpg')",
-        audioSrc: '../assets/audio/fish.mp3',
+        image: "url('../assets/img/fishing.jpg')",
+        audioSrc: '../assets/audio/fishing.mp3',
       },
       {
         word: 'fly',

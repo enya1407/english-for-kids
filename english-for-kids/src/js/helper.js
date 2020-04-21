@@ -1,9 +1,4 @@
 import cardsArr from './model/cards.js';
-import { renderCardsCategory, renderCardsWord, cleanContainer } from './view/renderCards.js';
-
-const cardContainer = document.querySelector('.card-container');
-const wrapperShadow = document.querySelector('.wrapper__shadow');
-const message = document.querySelector('.message');
 
 const playAudio = (nameOfCategory, word) => {
   const [categoryObj] = cardsArr.filter((el) => el.name === nameOfCategory);
@@ -34,42 +29,14 @@ const shuffle = (arr) => {
   return result;
 };
 
-const gameOver = (counterErrors) => {
-  const audio = new Audio();
-  if (counterErrors === 0) {
-    wrapperShadow.classList.add('winner');
-    message.textContent = `Win!`;
-    message.classList.remove('hidden');
-    setTimeout(() => {
-      wrapperShadow.classList.remove('winner');
-      message.classList.add('hidden');
-    }, 3000);
-    audio.src = '../assets/audio/success.mp3';
-  } else {
-    wrapperShadow.classList.add('loser');
-    message.textContent = `${counterErrors} errors`;
-    message.classList.remove('hidden');
-    setTimeout(() => {
-      wrapperShadow.classList.remove('loser');
-      message.classList.add('hidden');
-    }, 3000);
-    audio.src = '../assets/audio/failure.mp3';
-  }
-  audio.play();
-  cleanContainer();
-  cardContainer.append(renderCardsCategory());
+const getInitialState = () => {
+  const initialState = {};
+  cardsArr.forEach((category) =>
+    category.cards.forEach((wordObj) => {
+      initialState[wordObj.word] = new Array(3).fill(0);
+    })
+  );
+  return initialState;
 };
 
-const madeStar = (res) => {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  if (res === 'correct') {
-    star.classList.add('correct');
-  } else {
-    star.classList.add('incorrect');
-  }
-
-  document.querySelector('.star__container').append(star);
-};
-
-export { playAudio, findTranslation, shuffle, gameOver, madeStar };
+export { playAudio, findTranslation, shuffle, getInitialState };

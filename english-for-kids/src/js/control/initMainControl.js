@@ -1,6 +1,11 @@
-import { renderCardsCategory, renderCardsWord, cleanContainer } from '../view/renderCards.js';
+import {
+  renderCardsCategory,
+  renderCardsWord,
+  renderStatisticPage,
+  cleanContainer,
+} from '../view/renderCards.js';
 import { playAudio, findTranslation } from '../helper.js';
-import startGame from './gameControl.js';
+import { enlargeСounter } from './statistics.js';
 
 const cardContainer = document.querySelector('.card-container');
 const gameModeCheckbox = document.querySelector('.checkbox');
@@ -10,6 +15,8 @@ let onMainPage = true;
 
 // кнопка
 gameModToggle.addEventListener('click', () => {
+  if (document.querySelector('.card') === null) return;
+
   if (document.querySelectorAll('.card')[0].classList[1] === 'cardsCategory') {
     if (!gameModeCheckbox.checked) {
       document.querySelectorAll('.card').forEach((el) => el.classList.add('cardPlay'));
@@ -49,6 +56,11 @@ document.addEventListener('click', (evt) => {
   const closest = evt.target.closest('.cardsCategory');
   const category = closest ? closest.classList[2] : null;
 
+  if (evt.target.classList[1] === 'statistics') {
+    cleanContainer();
+    onMainPage = false;
+    cardContainer.append(renderStatisticPage());
+  }
   if (category) {
     cleanContainer();
     if (category === 'Main-Page') {
@@ -91,20 +103,7 @@ cardContainer.addEventListener('click', (evt) => {
     card.addEventListener('mouseleave', onMouseleave);
   } else if (!gameModeCheckbox.checked) {
     playAudio(nameOfCategory, word);
-  }
-});
 
-// включение игры
-cardContainer.addEventListener('click', (evt) => {
-  if (evt.target.classList[0] === 'button-Game' && evt.target.classList[1] !== 'button-repeat') {
-    const buttonGame = document.querySelector('.button-Game');
-    const nameOfCategory = document.querySelector('.nameOfCategory').textContent;
-
-    buttonGame.classList.add('button-repeat');
-    buttonGame.textContent = '';
-    startGame(nameOfCategory);
-    setTimeout(() => {
-      buttonGame.style.transition = 'none';
-    }, 500);
+    enlargeСounter(word, 0);
   }
 });
