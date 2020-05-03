@@ -5,12 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>movie-search</title>
-    <link rel="icon" href="favicon.png" type='image/png'>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="path/to/swiper.min.css">
 </head>
 
 <body>
-    <p class="p">start</p>
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="heading">MovieSearch</h1>
+        </header>
+        <main class="main">
+            <div class="search-container">
+                <form>
+                    <input type="search" placeholder="поиск" class="search">
+                    <input type="submit" value="найти" class="submit">
+                </form>
+                <p class="answer">No information on request</p>
+            </div>
+            <div class="swiper-container">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">Slide 1</div>
+                    <div class="swiper-slide">Slide 2</div>
+                    <div class="swiper-slide">Slide 3</div>
+                    <div class="swiper-slide">Slide 3</div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+            </div>
+
+        </main>
+        <footer class="footer">
+            <a href="https://rs.school/" class="link">
+                   RS School 2020q1</a>
+
+            <a href="https://github.com/enya1407" class="link author">
+         enya1407</a>
+
+
+        </footer>
+    </div>
     <script src="bundle.js"></script>
+
 </body>
 
 </html>

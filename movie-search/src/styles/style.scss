@@ -1,5 +1,9 @@
-@import '~normalize.css';
+@import "../../node_modules/normalize.css/normalize.css";
 
-.p {
-  color: red;
-}
+@import "./layout.scss";
+@import "./media.scss";
+
+// @font-face {
+//   font-family: "";
+//   src: url("../assets/fonts/");
+// }
