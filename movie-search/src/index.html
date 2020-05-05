@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>movie-search</title>
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="stylesheet" href="path/to/swiper.min.css">
 </head>
 
 <body>
@@ -17,24 +16,38 @@
         <main class="main">
             <div class="search-container">
                 <form>
-                    <input type="search" placeholder="поиск" class="search">
+                    <input type="search" placeholder="поиск" class="search" autofocus>
                     <input type="submit" value="найти" class="submit">
                 </form>
-                <p class="answer">No information on request</p>
-            </div>
-            <div class="swiper-container">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">Slide 1</div>
-                    <div class="swiper-slide">Slide 2</div>
-                    <div class="swiper-slide">Slide 3</div>
-                    <div class="swiper-slide">Slide 3</div>
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+                <div class="answer-container">
+
+                    <p class="answer"></p>
                 </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
 
             </div>
+            <div class="swiper-container">
+                <div class="swiper-button swiper-button-prev"></div>
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <!-- <div class="swiper-slide ">Slide 1</div>
+                    <div class="swiper-slide ">Slide 2</div>
+                    <div class="swiper-slide ">Slide 3</div>
+                    <div class="swiper-slide ">Slide 4</div>
+                    <div class="swiper-slide ">Slide 5</div>
+                    <div class="swiper-slide ">Slide 6</div>
+                    <div class="swiper-slide ">Slide 7</div>
+                    <div class="swiper-slide ">Slide 8</div> -->
+                </div>
+
+                <div class="swiper-button swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+                <!-- <div class="swiper-scrollbar"></div> -->
+            </div>
+
 
         </main>
         <footer class="footer">
@@ -47,8 +60,6 @@
 
         </footer>
     </div>
-    <script src="bundle.js"></script>
-
 </body>
 
 </html>

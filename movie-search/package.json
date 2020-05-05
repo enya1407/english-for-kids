@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode=development --open --watch"
   },
   "browserslist": "> 0.25%, not dead",
   "author": "",
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
+    "bootstrap": "^4.4.1",
     "normalize.css": "^8.0.1",
     "swiper": "^5.3.8"
   }
