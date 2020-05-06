@@ -62,7 +62,11 @@ export const renderSwiperSlides = async (name) => {
     const slideImg = document.createElement('img');
     const slideBody = document.createElement('div');
     slideImg.classList.add('card-img-top');
-    slideImg.setAttribute('src', `${data.Search[i].Poster}`);
+    if (data.Search[i].Poster === 'N/A') {
+      slideImg.classList.add('no-poster');
+    } else {
+      slideImg.setAttribute('src', `${data.Search[i].Poster}`);
+    }
     slideBody.classList.add('card-body');
     const cardText = document.createElement('p');
     cardText.classList.add('card-text');

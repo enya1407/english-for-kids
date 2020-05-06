@@ -81,7 +81,6 @@ body {
 }
 
 .swiper-slide {
-  // background-image: url("../assets/image/poster.jpg");
   // background-size: 100%;
   // width: 400px !important;
   background-repeat: no-repeat;
@@ -102,6 +101,12 @@ body {
 .card-img-top {
   height: 400px !important;
 }
+.no-poster {
+  background-image: url("../assets/image/no_poster.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
 .card-text {
   text-align: center;
   font-size: 20px;
