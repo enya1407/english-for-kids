@@ -1,6 +1,6 @@
-async function fetchData(query) {
+async function fetchData(query, page) {
   const apikey = 'ca876ee4';
-  const url = `https://www.omdbapi.com/?s=${query}&apikey=${apikey}`;
+  const url = `https://www.omdbapi.com/?s=${query}&page=${page}&apikey=${apikey}`;
 
   const response = await fetch(url);
   const data = await response.json();
