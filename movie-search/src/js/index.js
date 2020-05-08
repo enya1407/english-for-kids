@@ -8,41 +8,78 @@ const swiperWrapper = document.querySelector('.swiper-wrapper');
 const spinner = document.querySelector('.btn-primary');
 
 async function init() {
-  const slidesFragment = await renderSwiperSlides('terminator', 1);
-  swiperWrapper.append(slidesFragment);
+  spinner.classList.remove('hidden');
+  try {
+    const slidesFragment = await renderSwiperSlides('terminator');
+    swiperWrapper.append(slidesFragment);
 
-  spinner.classList.add('hidden');
-  return initSwiper();
+    spinner.classList.add('hidden');
+    swiperWrapper.classList.add('opacity');
+    return initSwiper();
+  } catch (err) {
+    spinner.classList.add('hidden');
+    if (err == "TypeError: Cannot read property '0' of undefined") {
+      answer.textContent = `No results for "${search.value}"`;
+    } else {
+      answer.textContent = err.message;
+    }
+  }
 }
-
 init();
 
 submit.addEventListener('click', async () => {
   event.preventDefault();
   spinner.classList.remove('hidden');
-
-  if (search.value.search(/[0-9А-я]/)) {
-    // console.log(search.value);
+  if (!search.value) {
+    answer.textContent = `Enter a word or phrase to search`;
+  } else if (search.value.search(/[А-я]/)) {
     try {
-      const fragment = await renderSwiperSlides(search.value, 1);
+      const fragment = await renderSwiperSlides(search.value);
+      initSwiper();
+      swiperWrapper.classList.remove('opacity');
       clearSwiperWrapper();
+
       swiperWrapper.append(fragment);
+
       answer.textContent = ``;
+      setTimeout(() => {
+        swiperWrapper.classList.add('opacity');
+      }, 300);
     } catch (err) {
-      answer.textContent = `No results for "${search.value}"`;
+      if (err == "TypeError: Cannot read property '0' of undefined") {
+        answer.textContent = `No results for "${search.value}"`;
+      } else {
+        answer.textContent = err.message;
+      }
     }
-  } else if (search.value.search(/[0-9A-z][0-9А-я]/)) {
+  } else if (search.value.search(/[A-z][А-я]/)) {
     const translate = await translateWord(search.value);
     try {
-      const fragment = await renderSwiperSlides(translate.text, 1);
+      const fragment = await renderSwiperSlides(translate.text);
+      initSwiper();
+      swiperWrapper.classList.remove('opacity');
       clearSwiperWrapper();
       swiperWrapper.append(fragment);
       answer.textContent = `"Showing results for ${translate.text}`;
+      setTimeout(() => {
+        swiperWrapper.classList.add('opacity');
+      }, 300);
     } catch (err) {
-      answer.textContent = `No results for "${search.value}"`;
+      if (
+        err == "TypeError: Cannot read property '0' of undefined" ||
+        err == "TypeError: Cannot read property 'imdbID' of undefined"
+      ) {
+        answer.textContent = `No results for "${search.value}"`;
+      } else {
+        answer.textContent = err.message;
+      }
     }
   } else {
-    answer.textContent = `No results for "${search.value}"`;
+    if (err === "TypeError: Cannot read property '0' of undefined") {
+      answer.textContent = `No results for "${search.value}"`;
+    } else {
+      answer.textContent = err;
+    }
   }
   spinner.classList.add('hidden');
 });
