@@ -3,57 +3,81 @@ import { clearSwiperWrapper } from '../view/clearSwiperWrapper';
 import { renderSwiperSlides } from '../view/renderSwiperSlides';
 
 export const onSearch = async (mySwiper) => {
+  event.preventDefault();
+
   const swiperWrapper = document.querySelector('.swiper-wrapper');
   const spinner = document.querySelector('.spinner');
   const searchInput = document.querySelector('.search');
   const answer = document.querySelector('.answer');
 
-  event.preventDefault();
-  spinner.classList.remove('hidden');
-  if (!searchInput.value) {
+  const searchValue = searchInput.value;
+
+  const haveEngSymbols = searchValue.search(/[A-z0-1]/) >= 0;
+  const haveRuSymbols = searchValue.search(/[А-я0-1]/) >= 0;
+
+  if (!searchValue) {
     answer.textContent = `Enter a word or phrase to search`;
-  } else if (searchInput.value.search(/[A-z0-1]/) >= 0 && searchInput.value.search(/[А-я]/) < 0) {
-    try {
-      const data = await fetchData(searchInput.value, 1);
-      const dataIdArray = await Promise.all(data.Search.map((el) => fetchDataId(el.imdbID)));
-      const slidesFragment = await renderSwiperSlides(data, dataIdArray);
-
-      spinner.classList.add('hidden');
-
-      swiperWrapper.classList.add('opacity');
-
-      swiperWrapper.classList.remove('opacity');
-
-      clearSwiperWrapper();
-      swiperWrapper.append(slidesFragment);
-      mySwiper.slideTo(0);
-      answer.textContent = ``;
-      setTimeout(() => {
-        swiperWrapper.classList.add('opacity');
-      }, 300);
-      return searchInput.value;
-    } catch (err) {
-      answer.textContent = `No results for "${searchInput.value}"`;
-    }
-  } else if (searchInput.value.search(/[А-я0-1]/) >= 0 && searchInput.value.search(/[A-z]/) < 0) {
-    const translate = await translateWord(searchInput.value);
-    try {
-      const data = await fetchData(translate, 1);
-      const dataIdArray = await Promise.all(data.Search.map((el) => fetchDataId(el.imdbID)));
-      const slidesFragment = await renderSwiperSlides(data, dataIdArray);
-      swiperWrapper.classList.remove('opacity');
-      clearSwiperWrapper();
-      swiperWrapper.append(slidesFragment);
-      mySwiper.slideTo(0);
-      answer.textContent = `"Showing results for ${translate.text}`;
-      setTimeout(() => {
-        swiperWrapper.classList.add('opacity');
-      }, 300);
-    } catch (err) {
-      answer.textContent = `No results for "${searchInput.value}"`;
-    }
-  } else {
-    answer.textContent = `No results for "${searchInput.value}"`;
+    return;
   }
+  spinner.classList.remove('hidden');
+
+  if (haveEngSymbols) {
+    try {
+      const data = await fetchData(searchValue, 1);
+      switch (data.Error) {
+        case 'Movie not found!':
+          answer.textContent = `No results for "${searchValue}"`;
+          break;
+        case 'Request limit reached!':
+          answer.textContent = `Request limit reached`;
+          break;
+        case 'Too many results.':
+          answer.textContent = `Too many results for "${searchValue}"`;
+          break;
+        default:
+          answer.textContent = '';
+
+          const dataIdArray = await Promise.all(data.Search.map((el) => fetchDataId(el.imdbID)));
+          const slidesFragment = await renderSwiperSlides(data, dataIdArray);
+          clearSwiperWrapper();
+          swiperWrapper.append(slidesFragment);
+          mySwiper.slideTo(0);
+          spinner.classList.add('hidden');
+          return searchValue;
+      }
+    } catch (err) {
+      answer.textContent = err.toString();
+    }
+  } else if (haveRuSymbols) {
+    const translate = await translateWord(searchValue);
+    try {
+      const data = await fetchData(translate.text, 1);
+
+      switch (data.Error) {
+        case 'Movie not found!':
+          answer.textContent = `No results for "${searchValue}"`;
+          break;
+        case 'Request limit reached!':
+          answer.textContent = `Request limit reached`;
+          break;
+        case 'Too many results.':
+          answer.textContent = `Too many results for "${searchValue}"`;
+          break;
+        default:
+          answer.textContent = `Showing results for ${translate.text}`;
+
+          const dataIdArray = await Promise.all(data.Search.map((el) => fetchDataId(el.imdbID)));
+          const slidesFragment = await renderSwiperSlides(data, dataIdArray);
+          clearSwiperWrapper();
+          swiperWrapper.append(slidesFragment);
+          mySwiper.slideTo(0);
+          spinner.classList.add('hidden');
+          return translate.text;
+      }
+    } catch (err) {
+      answer.textContent = err.toString();
+    }
+  }
+
   spinner.classList.add('hidden');
 };

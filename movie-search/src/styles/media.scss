@@ -33,12 +33,7 @@
   .answer {
     font-size: 18px;
   }
-  .swiper-button {
-    display: none;
-  }
-  .swiper-slide {
-    width: 250px !important;
-  }
+
   .footer .link {
     font-size: 15px;
   }
@@ -51,9 +46,12 @@
   .search-container {
     width: 93%;
   }
-  @media (max-width: 770px) {
-    .spinner {
-      right: 30%;
-    }
+  .swiper-container {
+    width: 300px;
+    padding: 0 0px;
+  }
+
+  .swiper-button {
+    display: none;
   }
 }

@@ -1,0 +1,44 @@
+.search-container {
+  width: 70%;
+  margin: 30px auto 5px;
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  top: 16px;
+  right: 189px;
+}
+.search {
+  background-image: url("../assets/image/search.svg");
+  background-repeat: no-repeat;
+  height: 50px;
+  width: calc(100% - 140px);
+  padding: 10px 12px 10px 50px;
+  font-size: 25px;
+}
+
+.submit {
+  height: 60px;
+  width: 130px;
+  border-radius: 15px;
+  border: none;
+  font-size: 30px;
+  background-color: #de6e6e;
+}
+.submit:hover {
+  cursor: pointer;
+  border: 3px solid #ffccbc;
+}
+
+.answer-container {
+  height: 37px;
+}
+.answer {
+  backdrop-filter: blur(7px);
+  font-size: 25px;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
