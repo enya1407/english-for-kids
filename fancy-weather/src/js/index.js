@@ -1,9 +1,9 @@
-const backgroundSwitch = document.querySelector('.btn-outline-secondary')
+const backgroundBtn = document.querySelector('.background-btn')
 const arrowSpinning = document.querySelector('.bi-arrow-repeat')
 const languageButton = document.querySelector('#languageButton')
 const dropdownMenu = document.querySelector(".dropdown-menu")
 
-backgroundSwitch.addEventListener('click', () => {
+backgroundBtn.addEventListener('click', () => {
   arrowSpinning.classList.add('spinning')
   setTimeout(()=>{arrowSpinning.classList.remove('spinning')}, 500) 
 })
