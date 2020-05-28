@@ -15,6 +15,9 @@ body {
   min-height: 100%;
   width: 100%;
 }
+.hidden {
+  display: none;
+}
 
 .header {
   padding: 30px 80px 20px;
@@ -69,11 +72,30 @@ body {
 .background-btn {
   background: #6c757d url("../assets/image/update-button.svg");
 }
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show > .btn-secondary.dropdown-toggle,
+.dropdown-item.active,
+.dropdown-item:active {
+  cursor: default;
+  background-color: #545b62;
+}
 .spinning {
   transform: rotateZ(180deg);
   transition: 0.2s;
 }
 
+.main__spinner {
+  margin: auto;
+}
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #545b62;
+  border-color: #545b62;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+}
 .main {
   display: flex;
   justify-content: space-evenly;
@@ -96,6 +118,7 @@ body {
 
 .weather__today {
   display: flex;
+  // border: solid;
 }
 .temp {
   font-size: 180px;
@@ -105,7 +128,6 @@ body {
 .other-information {
   font-size: 28px;
   margin-top: 35px;
-  text-transform: uppercase;
 }
 .weather__three-days {
   display: flex;
@@ -123,12 +145,14 @@ body {
   margin: 20px;
   flex-basis: 35%;
 }
-.local-map {
-  width: 400px;
-  height: 400px;
-  background-color: #495057;
 
+.local-map {
+  background-color: #495057;
   border-radius: 25px;
+  overflow: hidden;
+}
+.mapboxgl-control-container {
+  text-align: center;
 }
 .coordinates {
   margin-top: 30px;

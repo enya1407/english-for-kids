@@ -1,4 +1,5 @@
 // import { createPopper } from '@popperjs/core'
+
 import './styles/style.scss';
 import './js/index.js';
 
@@ -9,6 +10,3 @@ import './js/index.js';
 // createPopper(button, tooltip, {
 //   placement: 'right',
 // });
-
-
-

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fancy-weather</title>
     <link rel="icon" href="favicon.png" type="image/png">
+    <!-- <script src="https://api-maps.yandex.ru/2.1/?apikey=6923b75a-e7f1-4cb4-8994-7f5b63a973b2&lang=ru_RU" type="text/javascript"> -->
+    </script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body>
@@ -29,11 +32,11 @@
                 </div>
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" checked> °F
+                    <label class="btn btn-secondary ">
+                    <input type="radio" name="options" id="option1" > °F
                   </label>
-                    <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option3"> °C
+                    <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option3" checked> °C
                   </label>
                 </div>
             </div>
@@ -42,7 +45,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search city" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">SEARCH</button>
+                        <button class="btn btn-outline-secondary btn-search" type="button" id="button-addon2">SEARCH</button>
                     </div>
                 </div>
             </div>
@@ -50,11 +53,18 @@
 
 
         </header>
-        <main class="main">
+        <div class="main__spinner">
+            <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
+        </div>
+        <main class="main hidden">
             <div class="weather__container">
-                <div class="user-location">
+                <!-- <div class="user-location">
                     <div class="user-location__place">dzyarzhynsk,belarus</div>
                     <div class="user-location__date">Wed 27 May 11:57</div>
+
                 </div>
                 <div class="weather">
                     <div class="weather__today">
@@ -82,10 +92,10 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
             </div>
             <div class="map__container">
-                <div class="local-map"></div>
+                <div class="local-map" id="map"></div>
                 <div class="coordinates">
                     <p class="Latitude">Latitude: 53° 41' 8.44728'' N</p>
                     <p class="Longitude">Longitude: 27° 7' 2.19720'' E</p>
