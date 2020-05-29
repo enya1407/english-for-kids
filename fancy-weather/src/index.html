@@ -12,7 +12,13 @@
 </head>
 
 <body>
-    <wrapper class="wrapper">
+    <div class="wrapper__spinner">
+        <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
+    </div>
+    <wrapper class="wrapper hidden">
         <header class="header">
             <div class="button__bar">
                 <button type="button" class="btn btn-outline-secondary background-btn"><svg class="bi bi-arrow-repeat" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -21,45 +27,43 @@
                   </svg></button>
                 <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            EN
-                        </a>
+
+                    </a>
 
                     <div class="dropdown-menu" aria-labelledby="languageButton" id="languageDropdawn">
-                        <a class="dropdown-item active" href="#">EN</a>
-                        <a class="dropdown-item" href="#">RU</a>
-                        <a class="dropdown-item" href="#">BE</a>
+                        <a class="dropdown-item " id="en" href="#">EN</a>
+                        <a class="dropdown-item " id="ru" href="#">RU</a>
+                        <a class="dropdown-item " id="be" href="#">BE</a>
                     </div>
                 </div>
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary ">
-                    <input type="radio" name="options" id="option1" > °F
+                    <label class="btn btn-secondary " id="fahrenheit">
+                    <input type="radio" name="options"  > °F
                   </label>
-                    <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option3" checked> °C
+                    <label class="btn btn-secondary active" id="celsius">
+                    <input type="radio" name="options"  checked> °C
                   </label>
                 </div>
             </div>
 
             <div clsaa="input-field">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search city" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary btn-search" type="button" id="button-addon2">SEARCH</button>
-                    </div>
+                    <form class="form-search">
+                        <input type="search" class="form-control" placeholder="Search city" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary btn-search" type="submit" id="button-addon2">SEARCH</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
 
 
 
         </header>
-        <div class="main__spinner">
-            <button class="btn btn-primary" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
-              </button>
-        </div>
-        <main class="main hidden">
+
+        <main class="main ">
             <div class="weather__container">
                 <!-- <div class="user-location">
                     <div class="user-location__place">dzyarzhynsk,belarus</div>

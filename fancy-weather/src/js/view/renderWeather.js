@@ -1,35 +1,36 @@
 import { fetchDataCity, fetchDataWeather, fetchDataGeocoding } from '../model/fetchData';
+import { MAP } from '../translation';
+import { celsiusToFahrenheitConverter } from '../helper';
 
-export const renderPages = async (city) => {
+export const renderWeather = async (city, country, lang, deg) => {
   const fragment = new DocumentFragment();
 
   console.log(city);
-  const Weather = await fetchDataWeather(city);
-  console.log(Weather);
-  const time = new Date();
-  console.log(
-    time.getDay(),
-    time.getMonth(),
-    time.getDate(),
-    time.getFullYear(),
-    time.getHours(),
-    time.getMinutes(),
-    time.toDateString()
-  );
 
-  // dayOfTheWeek = time.getDay()
+  const Weather = await fetchDataWeather(city, lang);
+  console.log(Weather);
+
+  const timeAndDate = new Date();
+  const dayWeekShort = MAP[lang].short[timeAndDate.getDay()];
+  const day = timeAndDate.getDate();
+  const month = MAP[lang].month[timeAndDate.getMonth()];
+  const year = timeAndDate.getFullYear();
+
+  const currentTime = setInterval(() => timeAndDate.toLocaleTimeString(), 1000);
+  // console.log(a);
+  // const timezone = timeAndDate.getTimezoneOffset() / 60;
 
   const userLocation = document.createElement('div');
   userLocation.classList.add('user-location');
 
   const userLocationPlace = document.createElement('div');
   userLocationPlace.classList.add('user-location__place');
-  userLocationPlace.textContent = `${city},`;
+  userLocationPlace.textContent = `${Weather.city.name}, ${country}`;
   userLocation.append(userLocationPlace);
 
   const userLocationDate = document.createElement('div');
   userLocationDate.classList.add('user-location__date');
-  userLocationDate.textContent = `${time.toDateString()} ${time.toLocaleTimeString()}`;
+  userLocationDate.textContent = `${dayWeekShort} ${day} ${month} ${year} ${timeAndDate.toLocaleTimeString()}`;
   userLocation.append(userLocationDate);
 
   const weather = document.createElement('div');
@@ -41,7 +42,13 @@ export const renderPages = async (city) => {
 
   const temp = document.createElement('div');
   temp.classList.add('temp');
-  temp.textContent = `${Math.round(Weather.list[0].main.temp)}°`;
+  const tempCelsius = Math.round(Weather.list[0].main.temp);
+  if (deg === 'C') {
+    temp.textContent = `${tempCelsius}°C`;
+  } else {
+    temp.textContent = `${Math.round(celsiusToFahrenheitConverter(tempCelsius))}°F`;
+  }
+
   weatherToday.append(temp);
 
   const otherInformation = document.createElement('div');
@@ -50,22 +57,24 @@ export const renderPages = async (city) => {
 
   const weatherDescription = document.createElement('p');
   weatherDescription.classList.add('weather-description');
-  weatherDescription.textContent = `${Weather.list[0].weather[0].description}`;
+  weatherDescription.textContent = ``;
   otherInformation.append(weatherDescription);
 
   const weatherFeels = document.createElement('p');
   weatherFeels.classList.add('weather-feels');
-  weatherFeels.textContent = `feels like:`;
+  weatherFeels.textContent = `${MAP[lang].other[4]}`;
   otherInformation.append(weatherFeels);
 
   const wind = document.createElement('p');
   wind.classList.add('wind');
-  wind.textContent = `wind: ${Math.round(Weather.list[0].wind.speed)}mph`;
+  wind.textContent = `${MAP[lang].other[5]} ${Math.round(Weather.list[0].wind.speed)}${
+    MAP[lang].other[6]
+  }`;
   otherInformation.append(wind);
 
   const humidity = document.createElement('p');
   humidity.classList.add('humidity');
-  humidity.textContent = `humidity: ${Weather.list[0].main.humidity}%`;
+  humidity.textContent = `${MAP[lang].other[7]} ${Weather.list[0].main.humidity}%`;
   otherInformation.append(humidity);
 
   const weatherThreeDays = document.createElement('div');

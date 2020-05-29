@@ -1,17 +1,40 @@
 import { fetchDataCity, fetchDataWeather, fetchDataGeocoding } from './model/fetchData';
-import { renderPages } from './view/renderPages';
+import { renderWeather } from './view/renderWeather';
 import { clearPages } from './view/clearPages';
 
-const main = document.querySelector('.main');
-const mainSpinner = document.querySelector('.main__spinner');
+let lang = localStorage.getItem('lang') || 'en';
+let deg = localStorage.getItem('deg') || 'C';
+let currentCity, currentCountry;
+
+const wrapper = document.querySelector('.wrapper');
+const wrapperSpinner = document.querySelector('.wrapper__spinner');
 const backgroundBtn = document.querySelector('.background-btn');
 const arrowSpinning = document.querySelector('.bi-arrow-repeat');
 const languageButton = document.querySelector('#languageButton');
 const dropdownMenu = document.querySelector('.dropdown-menu');
-const btnSearch = document.querySelector('.btn-search');
+const changeDeg = document.querySelector('.btn-group');
+const celsius = document.querySelector('#celsius');
+
 const formControl = document.querySelector('.form-control');
+const formSearch = document.querySelector('.form-search');
 
 const weatherContainer = document.querySelector('.weather__container');
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const dataCity = await fetchDataCity();
+  currentCity = dataCity.city;
+  currentCountry = dataCity.country;
+
+  const weatherFragment = await renderWeather(currentCity, currentCountry, lang, deg);
+  weatherContainer.append(weatherFragment);
+  console.log(await fetchDataGeocoding(currentCity));
+  // await ready();
+  languageButton.textContent = lang.toUpperCase();
+  document.getElementById(`${lang}`).classList.add('active');
+
+  wrapper.classList.remove('hidden');
+  wrapperSpinner.classList.add('hidden');
+});
 
 backgroundBtn.addEventListener('click', () => {
   arrowSpinning.classList.add('spinning');
@@ -20,22 +43,47 @@ backgroundBtn.addEventListener('click', () => {
   }, 500);
 });
 
-dropdownMenu.addEventListener('click', (event) => {
+dropdownMenu.addEventListener('click', async (event) => {
   if (event.target.classList.contains('dropdown-item')) {
     dropdownMenu.querySelectorAll('.dropdown-item').forEach((el) => el.classList.remove('active'));
     event.target.classList.add('active');
     languageButton.textContent = event.target.textContent;
+    if (event.target.textContent.toLowerCase() != lang) {
+      lang = event.target.textContent.toLowerCase();
+      const weatherFragment = await renderWeather(currentCity, currentCountry, lang, deg);
+      clearPages();
+
+      weatherContainer.append(weatherFragment);
+    }
   }
 });
 
-btnSearch.addEventListener('click', async () => {
-  console.log(1);
-
-  try {
-    const weatherFragment = await renderPages(formControl.value);
+changeDeg.addEventListener('click', async (event) => {
+  const temp = document.querySelector('.temp');
+  console.log(temp, deg);
+  if (event.target.id == 'fahrenheit' && deg == 'C') {
+    deg = 'F';
+    const weatherFragment = await renderWeather(currentCity, currentCountry, lang, deg);
     clearPages();
 
     weatherContainer.append(weatherFragment);
+  }
+  if (event.target.id == 'celsius' && deg == 'F') {
+    deg = 'C';
+    const weatherFragment = await renderWeather(currentCity, currentCountry, lang, deg);
+    clearPages();
+
+    weatherContainer.append(weatherFragment);
+  }
+});
+
+formSearch.addEventListener('submit', async () => {
+  try {
+    clearPages();
+    const weatherFragment = await renderWeather(formControl.value, currentCountry, lang, deg);
+
+    weatherContainer.append(weatherFragment);
+    currentCity = formControl.value;
   } catch (err) {}
 });
 
@@ -54,17 +102,6 @@ btnSearch.addEventListener('click', async () => {
 //   });
 // }
 
-window.addEventListener('DOMContentLoaded', async () => {
-  const city = await fetchDataCity();
-  // console.log(Geolocation.city);
-  const weatherFragment = await renderPages(city.city);
-  weatherContainer.append(weatherFragment);
-  console.log(await fetchDataGeocoding(city.city));
-  // await ready();
-  main.classList.remove('hidden');
-  mainSpinner.classList.add('hidden');
-});
-
 var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
 mapboxgl.accessToken =
@@ -75,4 +112,9 @@ var map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/streets-v11',
   hash: true,
   zoom: 8,
+});
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('lang', lang);
+  localStorage.setItem('deg', deg);
 });

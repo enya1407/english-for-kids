@@ -5,7 +5,9 @@ body {
   background-size: cover;
   height: 100vh;
 }
-
+.wrapper__spinner {
+  margin: auto;
+}
 .wrapper {
   min-width: 320px;
   max-width: 1440px;
@@ -85,9 +87,6 @@ body {
   transition: 0.2s;
 }
 
-.main__spinner {
-  margin: auto;
-}
 .btn-primary:disabled {
   color: #fff;
   background-color: #545b62;
@@ -121,12 +120,12 @@ body {
   // border: solid;
 }
 .temp {
-  font-size: 180px;
+  font-size: 160px;
   margin-right: 55px;
 }
 
 .other-information {
-  font-size: 28px;
+  font-size: 25px;
   margin-top: 35px;
 }
 .weather__three-days {

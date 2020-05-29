@@ -5,18 +5,20 @@ async function fetchDataCity() {
   const response = await fetch(url);
 
   const data = await response.json();
+  console.log(data, 'fetchDataCity');
   return data;
 }
 
-async function fetchDataWeather(city) {
+async function fetchDataWeather(city, lang) {
   const apikey = 'b87936fac4ac61be504920f6a93df6c0';
-  const lang = 'en';
+  // const lang = 'en';
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=${lang}&units=metric&APPID=${apikey}`;
 
   const response = await fetch(url);
 
   const data = await response.json();
+  console.log(data, lang, 'fetchDataWeather');
   return data;
 }
 
