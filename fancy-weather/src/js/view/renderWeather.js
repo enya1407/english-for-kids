@@ -2,23 +2,18 @@ import { fetchDataCity, fetchDataWeather, fetchDataGeocoding } from '../model/fe
 import { MAP } from '../translation';
 import { celsiusToFahrenheitConverter } from '../helper';
 
-export const renderWeather = async (city, country, lang, deg) => {
+export const renderWeather = async (city, lang, deg) => {
   const fragment = new DocumentFragment();
 
-  console.log(city);
-
   const Weather = await fetchDataWeather(city, lang);
-  console.log(Weather);
+  console.log(Weather, 'weather');
 
+  const country = Weather.city.country;
   const timeAndDate = new Date();
   const dayWeekShort = MAP[lang].short[timeAndDate.getDay()];
   const day = timeAndDate.getDate();
   const month = MAP[lang].month[timeAndDate.getMonth()];
   const year = timeAndDate.getFullYear();
-
-  const currentTime = setInterval(() => timeAndDate.toLocaleTimeString(), 1000);
-  // console.log(a);
-  // const timezone = timeAndDate.getTimezoneOffset() / 60;
 
   const userLocation = document.createElement('div');
   userLocation.classList.add('user-location');
@@ -30,8 +25,13 @@ export const renderWeather = async (city, country, lang, deg) => {
 
   const userLocationDate = document.createElement('div');
   userLocationDate.classList.add('user-location__date');
-  userLocationDate.textContent = `${dayWeekShort} ${day} ${month} ${year} ${timeAndDate.toLocaleTimeString()}`;
+  userLocationDate.textContent = `${dayWeekShort} ${day} ${month} ${year} `;
   userLocation.append(userLocationDate);
+
+  const userLocationTime = document.createElement('span');
+  userLocationTime.classList.add('user-location__time');
+  userLocationTime.textContent = new Date().toLocaleTimeString();
+  userLocationDate.append(userLocationTime);
 
   const weather = document.createElement('div');
   weather.classList.add('weather');

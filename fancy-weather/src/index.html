@@ -38,10 +38,10 @@
                 </div>
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary " id="fahrenheit">
+                    <label class="btn btn-secondary " id="F">
                     <input type="radio" name="options"  > °F
                   </label>
-                    <label class="btn btn-secondary active" id="celsius">
+                    <label class="btn btn-secondary " id="C">
                     <input type="radio" name="options"  checked> °C
                   </label>
                 </div>
@@ -51,9 +51,8 @@
                 <div class="input-group mb-3">
                     <form class="form-search">
                         <input type="search" class="form-control" placeholder="Search city" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary btn-search" type="submit" id="button-addon2">SEARCH</button>
-                        </div>
+
+                        <button class="btn btn-outline-secondary btn-search" type="submit" id="button-addon2">SEARCH</button>
                     </form>
 
                 </div>
@@ -99,11 +98,10 @@
                 </div> -->
             </div>
             <div class="map__container">
-                <div class="local-map" id="map"></div>
+                <div class="map" id="map"></div>
                 <div class="coordinates">
                     <p class="Latitude">Latitude: 53° 41' 8.44728'' N</p>
                     <p class="Longitude">Longitude: 27° 7' 2.19720'' E</p>
-
                 </div>
             </div>
         </main>

@@ -37,6 +37,7 @@
     "bootstrap": "^4.4.1",
     "jquery": "^3.5.1",
     "mapbox-gl": "^1.10.1",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "ymaps": "^0.2.1"
   }
 }
