@@ -6,12 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fancy-weather</title>
     <link rel="icon" href="favicon.png" type="image/png">
-    <!-- <script src="https://api-maps.yandex.ru/2.1/?apikey=6923b75a-e7f1-4cb4-8994-7f5b63a973b2&lang=ru_RU" type="text/javascript"> -->
-    </script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 
 <body>
+    <div class="modal hidden" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <p class="text-Err"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="wrapper__spinner">
         <button class="btn btn-primary" type="button" disabled>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -20,88 +33,48 @@
     </div>
     <wrapper class="wrapper hidden">
         <header class="header">
-            <div class="button__bar">
-                <button type="button" class="btn btn-outline-secondary background-btn"><svg class="bi bi-arrow-repeat" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <div>
+                <div class="button__bar">
+                    <button type="button" class="btn btn-outline-secondary background-btn"><svg class="bi bi-arrow-repeat" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
                     <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/>
                   </svg></button>
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="languageButton" id="languageDropdawn">
-                        <a class="dropdown-item " id="en" href="#">EN</a>
-                        <a class="dropdown-item " id="ru" href="#">RU</a>
-                        <a class="dropdown-item " id="be" href="#">BE</a>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="languageButton" id="languageDropdawn">
+                            <a class="dropdown-item " id="en" href="#">EN</a>
+                            <a class="dropdown-item " id="ru" href="#">RU</a>
+                            <a class="dropdown-item " id="be" href="#">BE</a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary " id="F">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary " id="F">
                     <input type="radio" name="options"  > °F
                   </label>
-                    <label class="btn btn-secondary " id="C">
+                        <label class="btn btn-secondary " id="C">
                     <input type="radio" name="options"  checked> °C
                   </label>
+                    </div>
                 </div>
             </div>
-
-            <div clsaa="input-field">
+            <div class="input-field">
                 <div class="input-group mb-3">
                     <form class="form-search">
-                        <input type="search" class="form-control" placeholder="Search city" aria-label="Recipient's username" aria-describedby="button-addon2">
-
-                        <button class="btn btn-outline-secondary btn-search" type="submit" id="button-addon2">SEARCH</button>
+                        <input type="search" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary btn-search" type="submit" id="button-addon2"></button>
                     </form>
-
                 </div>
             </div>
-
-
-
         </header>
-
         <main class="main ">
             <div class="weather__container">
-                <!-- <div class="user-location">
-                    <div class="user-location__place">dzyarzhynsk,belarus</div>
-                    <div class="user-location__date">Wed 27 May 11:57</div>
-
-                </div>
-                <div class="weather">
-                    <div class="weather__today">
-                        <div class="temp">+18°</div>
-                        <div class="other-information">
-                            <p class="weather-description">MOSTLY cLOUDY</p>
-                            <p class="weather-feels">FEELS LIKE: +19°</p>
-                            <p class="wind">WIND: 5 M/S</p>
-                            <p class="humidity">HUMIDITY: 49%</p>
-                        </div>
-
-                    </div>
-                    <div class="weather__three-days">
-                        <div class="first-day day">
-                            <p class="name-day">thursday</p>
-                            <p class="temp-day">+20°</p>
-                        </div>
-                        <div class="second-day day ">
-                            <p class="name-day">friday</p>
-                            <p class="temp-day">+20°</p>
-                        </div>
-                        <div class="third-day day">
-                            <p class="name-day">saturday</p>
-                            <p class="temp-day">+20°</p>
-                        </div>
-                    </div>
-
-                </div> -->
             </div>
             <div class="map__container">
                 <div class="map" id="map"></div>
                 <div class="coordinates">
-                    <p class="Latitude">Latitude: 53° 41' 8.44728'' N</p>
-                    <p class="Longitude">Longitude: 27° 7' 2.19720'' E</p>
+                    <p class="latitude"></p>
+                    <p class="longitude"></p>
                 </div>
             </div>
         </main>

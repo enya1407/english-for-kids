@@ -1,15 +1,16 @@
-import { fetchDataCity, fetchDataWeather, fetchDataGeocoding, getMap } from './model/fetchData';
-import { renderWeather } from './view/renderWeather';
-import { clearPages } from './view/clearPages';
-import { setTime } from './helper';
+import { fetchDataGeocoding } from './model/fetchDataGeocoding';
+import { fetchDataCity } from './model/fetchDataCity';
+import { fetchDataWeather } from './model/fetchDataWeather';
+import { fetchDataImage } from './model/fetchDataImage';
+
+import { getMap, setPlacemark } from './model/getMaps';
+import { initPage } from './control/initPage';
+import { errorOutput, changeBackground, getImageQuery } from './helper';
 
 let lang = localStorage.getItem('lang') || 'en';
 let deg = localStorage.getItem('deg') || 'C';
-let currentCity;
-let intervalId;
-let coords;
-let geocodeData;
-let myMap;
+let currentCity, coords, requestedCity, geocodeData, myMap, weatherData;
+let url;
 
 const wrapper = document.querySelector('.wrapper');
 const wrapperSpinner = document.querySelector('.wrapper__spinner');
@@ -18,40 +19,40 @@ const arrowSpinning = document.querySelector('.bi-arrow-repeat');
 const languageButton = document.querySelector('#languageButton');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 const changeDeg = document.querySelector('.btn-group');
-
 const formControl = document.querySelector('.form-control');
 const formSearch = document.querySelector('.form-search');
 
-const weatherContainer = document.querySelector('.weather__container');
-
-const restartTimer = () => {
-  clearInterval(intervalId);
-  intervalId = setTime();
-};
-
 window.addEventListener('DOMContentLoaded', async () => {
-  const dataCity = await fetchDataCity();
-  currentCity = dataCity.city;
-  coords = dataCity.loc;
+  try {
+    const dataCity = await fetchDataCity(lang);
+    currentCity = dataCity.city;
+    coords = dataCity.loc;
 
-  myMap = await getMap(coords, lang);
+    myMap = await getMap(coords, lang);
 
-  geocodeData = await fetchDataGeocoding(coords, lang);
-  console.log(geocodeData, 'fetchDataGeocoding');
+    geocodeData = await fetchDataGeocoding(coords, lang);
 
-  const weatherFragment = await renderWeather(currentCity, lang, deg);
-  weatherContainer.append(weatherFragment);
-  intervalId = setTime();
+    coords = geocodeData.results[0].geometry;
 
-  languageButton.textContent = lang.toUpperCase();
-  document.getElementById(`${lang}`).classList.add('active');
-  document.getElementById(`${deg}`).classList.add('active');
+    weatherData = await fetchDataWeather(coords, lang);
+    initPage(weatherData, geocodeData, lang, deg);
 
-  wrapper.classList.remove('hidden');
-  wrapperSpinner.classList.add('hidden');
+    url = await fetchDataImage(getImageQuery(weatherData), lang);
+    changeBackground(url);
+    languageButton.textContent = lang.toUpperCase();
+    document.getElementById(`${lang}`).classList.add('active');
+    document.getElementById(`${deg}`).classList.add('active');
+
+    wrapper.classList.remove('hidden');
+    wrapperSpinner.classList.add('hidden');
+  } catch {
+    return;
+  }
 });
 
-backgroundBtn.addEventListener('click', () => {
+backgroundBtn.addEventListener('click', async () => {
+  url = await fetchDataImage(getImageQuery(weatherData), lang);
+  changeBackground(url);
   arrowSpinning.classList.add('spinning');
   setTimeout(() => {
     arrowSpinning.classList.remove('spinning');
@@ -65,50 +66,63 @@ dropdownMenu.addEventListener('click', async (event) => {
     languageButton.textContent = event.target.textContent;
     if (event.target.textContent.toLowerCase() != lang) {
       lang = event.target.textContent.toLowerCase();
-      const weatherFragment = await renderWeather(currentCity, lang, deg);
-      clearPages();
 
-      weatherContainer.append(weatherFragment);
-      restartTimer();
+      geocodeData = await fetchDataGeocoding(`${coords.lat}, ${coords.lng}`, lang);
+      initPage(weatherData, geocodeData, lang, deg);
     }
   }
 });
 
 changeDeg.addEventListener('click', async (event) => {
   const temp = document.querySelector('.temp');
-  console.log(temp, deg);
+
   if (event.target.id == 'F' && deg == 'C') {
     deg = 'F';
-    const weatherFragment = await renderWeather(currentCity, lang, deg);
-    clearPages();
-
-    weatherContainer.append(weatherFragment);
-    restartTimer();
   }
   if (event.target.id == 'C' && deg == 'F') {
     deg = 'C';
-    const weatherFragment = await renderWeather(currentCity, lang, deg);
-    clearPages();
-
-    weatherContainer.append(weatherFragment);
-    restartTimer();
   }
+  initPage(weatherData, geocodeData, lang, deg);
 });
 
 formSearch.addEventListener('submit', async () => {
   event.preventDefault();
+
+  if (!formControl.value.trim()) {
+    return errorOutput(lang);
+  }
+
+  wrapperSpinner.classList.remove('hidden');
+
   try {
+    requestedCity = await fetchDataGeocoding(formControl.value, lang);
+
+    if (!requestedCity.results.length) {
+      wrapperSpinner.classList.add('hidden');
+
+      formControl.value = '';
+      return errorOutput(lang);
+    }
+
     currentCity = formControl.value;
-    geocodeData = await fetchDataGeocoding(currentCity, lang);
+    geocodeData = requestedCity;
+
     const { lat, lng } = geocodeData.results[0].geometry;
 
+    coords = geocodeData.results[0].geometry;
+    weatherData = await fetchDataWeather(coords, lang);
+    url = await fetchDataImage(getImageQuery(weatherData), lang);
+    changeBackground(url);
+    initPage(weatherData, geocodeData, lang, deg);
     myMap.panTo([lat, lng], { duration: 2000 });
+    setPlacemark(myMap);
 
-    const weatherFragment = await renderWeather(currentCity, lang, deg);
-    clearPages();
-    weatherContainer.append(weatherFragment);
-    restartTimer();
-  } catch (err) {}
+    formControl.value = '';
+    wrapperSpinner.classList.add('hidden');
+  } catch {
+    formControl.value = '';
+    wrapperSpinner.classList.add('hidden');
+  }
 });
 
 window.addEventListener('beforeunload', () => {

@@ -1,0 +1,52 @@
+.weather__container {
+  margin: 20px 0px 0px 20px;
+}
+
+.user-location__place {
+  font-size: 50px;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.user-location__date-and-time {
+  font-size: 30px;
+}
+
+.weather__today {
+  display: flex;
+  margin: 20px;
+}
+.temp {
+  font-size: 150px;
+  margin-right: 90px;
+}
+
+.other-information {
+  font-size: 20px;
+  margin: 0;
+}
+.weather-description {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.weather__three-days {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day {
+  font-size: 20px;
+  margin: 20px;
+  text-transform: uppercase;
+  border: solid;
+  padding: 15px 15px 0;
+  width: 180px;
+  text-align: center;
+}
+.temp-day {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 15px;
+  font-size: 45px;
+}

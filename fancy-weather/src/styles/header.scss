@@ -1,0 +1,69 @@
+.button__bar {
+  width: 25%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-outline-secondary,
+.dropdown-toggle {
+  margin-right: 10px;
+}
+
+.btn-outline-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #545b62;
+}
+.dropdown-toggle {
+  height: 100%;
+  width: 68px;
+}
+
+.dropdown-menu.show {
+  left: -3px;
+  min-width: 1rem;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #545b62;
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: #6161617a;
+}
+
+.form-control:focus {
+  border-color: #495057;
+  box-shadow: 0 0 0 0.2rem #4242422e;
+}
+.form-search {
+  display: flex;
+}
+.background-btn {
+  background: #6c757d url("../assets/image/update-button.svg");
+}
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show > .btn-secondary.dropdown-toggle,
+.dropdown-item.active,
+.dropdown-item:active {
+  cursor: default;
+  background-color: #545b62;
+}
+.spinning {
+  transform: rotateZ(180deg);
+  transition: 0.2s;
+}
+
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #545b62;
+  border-color: #545b62;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+}

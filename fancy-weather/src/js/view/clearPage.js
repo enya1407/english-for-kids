@@ -1,4 +1,4 @@
-export const clearPages = () => {
+export const clearPage = () => {
   const weatherContainer = document.querySelector('.weather__container');
 
   while (weatherContainer.firstChild) {
